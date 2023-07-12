@@ -96,17 +96,10 @@ endif(BUILD_DOCS)
 
 # install (cmake)
 
-install(TARGETS ${PROJECT_NAME} "${PROJECT_NAME}-flags" EXPORT ${PROJECT_NAME}-config)
-
 install(FILES "${CMAKE_SOURCE_DIR}/CHANGELOG.md"
         DESTINATION "${CMAKE_INSTALL_DATADIR}/doc/${PROJECT_NAME}")
 
 set(CMAKE_LIB_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
-
-export(
-  TARGETS ${PROJECT_NAME} "${PROJECT_NAME}-flags"
-  NAMESPACE ${PROJECT_NAME}::
-  FILE "${CMAKE_LIB_DIR}/${PROJECT_NAME}-config.cmake")
 
 install(
   EXPORT ${PROJECT_NAME}-config
