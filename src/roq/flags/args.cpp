@@ -1,6 +1,6 @@
 /* Copyright (c) 2017-2023, Hans Erik Thrane */
 
-#include "roq/flags/parser.hpp"
+#include "roq/flags/args.hpp"
 
 #include <absl/flags/parse.h>
 #include <absl/flags/usage.h>
@@ -21,8 +21,9 @@ constexpr auto const PATTERN = ctll::fixed_string{".*/opt/conda/.*work/(src/)?(.
 
 namespace {
 template <typename R>
-R initialize(auto &args, auto &description, auto &version) {
+R initialize(auto argc, auto argv, auto &description, auto &version) {
   using result_type = std::remove_cvref<R>::type;
+  std::span<char *> args{argv, static_cast<size_t>(argc)};
   assert(!std::empty(args));
   absl::SetProgramUsageMessage(description);
   assert(!std::empty(version));
@@ -49,11 +50,8 @@ R initialize(auto &args, auto &description, auto &version) {
 
 // === IMPLEMENTATION ===
 
-Parser::Parser(std::span<char *> const &args, std::string_view const &description, std::string_view const &version)
-    : args_{initialize<decltype(args_)>(args, description, version)} {
-}
-
-Parser::~Parser() {
+Args::Args(int argc, char **argv, std::string_view const &description, std::string_view const &version)
+    : args_{initialize<decltype(args_)>(argc, argv, description, version)} {
 }
 
 }  // namespace flags

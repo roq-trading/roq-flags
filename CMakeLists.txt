@@ -48,13 +48,7 @@ include(GNUInstallDirs)
 
 find_package(absl REQUIRED)
 find_package(fmt REQUIRED)
-find_package(spdlog REQUIRED)
 find_package(roq-api REQUIRED)
-
-if(NOT ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-  find_package(PkgConfig REQUIRED)
-  pkg_check_modules(LIBUNWIND REQUIRED libunwind)
-endif()
 
 # include
 
@@ -96,12 +90,19 @@ endif(BUILD_DOCS)
 
 # install (cmake)
 
+install(TARGETS ${PROJECT_NAME} EXPORT "${PROJECT_NAME}-config")
+
 install(FILES "${CMAKE_SOURCE_DIR}/CHANGELOG.md"
         DESTINATION "${CMAKE_INSTALL_DATADIR}/doc/${PROJECT_NAME}")
 
-set(CMAKE_LIB_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
+set(ROQ_FLAGS_CMAKE_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
+
+export(
+  TARGETS ${PROJECT_NAME}
+  NAMESPACE ${PROJECT_NAME}::
+  FILE "${ROQ_FLAGS_CMAKE_DIR}/${PROJECT_NAME}-config.cmake")
 
 install(
-  EXPORT ${PROJECT_NAME}-config
+  EXPORT "${PROJECT_NAME}-config"
   NAMESPACE ${PROJECT_NAME}::
-  DESTINATION "${CMAKE_LIB_DIR}")
+  DESTINATION "${ROQ_FLAGS_CMAKE_DIR}")
