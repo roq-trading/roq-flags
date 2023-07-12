@@ -1,6 +1,6 @@
 set(TARGET_NAME "${PROJECT_NAME}")
 
-set(SOURCES args.cpp)
+set(SOURCES utils/non_empty.cpp args.cpp)
 
 add_library("${TARGET_NAME}" SHARED ${SOURCES})
 
