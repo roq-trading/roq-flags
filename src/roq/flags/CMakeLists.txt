@@ -1,6 +1,6 @@
 set(TARGET_NAME ${PROJECT_NAME})
 
-set(SOURCES validators/non_empty.cpp args.cpp)
+set(SOURCES validators/non_empty.cpp validators/time_period.cpp args.cpp)
 
 add_library(${TARGET_NAME} SHARED ${SOURCES})
 
