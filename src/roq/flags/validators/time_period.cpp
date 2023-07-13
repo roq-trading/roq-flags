@@ -8,7 +8,7 @@ namespace roq {
 namespace flags {
 namespace validators {
 
-TimePeriod::TimePeriod(const std::chrono::nanoseconds value) : value_{absl::FromChrono(value)} {
+TimePeriod::TimePeriod(std::chrono::nanoseconds value) : value_{absl::FromChrono(value)} {
 }
 
 TimePeriod::operator std::chrono::milliseconds() const {

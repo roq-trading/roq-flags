@@ -19,7 +19,7 @@ struct TimePeriod final {
   using value_type = absl::Duration;
 
   TimePeriod() = default;
-  TimePeriod(const std::chrono::nanoseconds value);           // NOLINT
+  TimePeriod(std::chrono::nanoseconds);                       // NOLINT
   TimePeriod(absl::Duration const &value) : value_{value} {}  // NOLINT
 
   operator value_type const &() const { return value_; }
