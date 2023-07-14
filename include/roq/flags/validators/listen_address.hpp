@@ -12,33 +12,33 @@ namespace roq {
 namespace flags {
 namespace validators {
 
-struct ROQ_PUBLIC NonEmpty final {
+struct ROQ_PUBLIC ListenAddress final {
   using value_type = std::string;
 
-  NonEmpty() = default;
-  NonEmpty(value_type const &value) : value_{value} {}  // NOLINT
+  ListenAddress() = default;
+  ListenAddress(value_type const &value) : value_{value} {}  // NOLINT
 
   operator value_type const &() const { return value_; }
 
   bool empty() const { return std::empty(value_); }
 
-  static bool required() { return true; };
+  static bool required() { return false; };
 
   // abseil
 
-  static std::string unparse(NonEmpty const &);
-  static bool parse(absl::string_view &, NonEmpty *&, std::string *&);
+  static std::string unparse(ListenAddress const &);
+  static bool parse(absl::string_view &, ListenAddress *&, std::string *&);
 
  private:
   value_type value_;
 };
 
-inline std::string AbslUnparseFlag(roq::flags::validators::NonEmpty const &flag) {
+inline std::string AbslUnparseFlag(roq::flags::validators::ListenAddress const &flag) {
   using value_type = std::remove_cvref<decltype(flag)>::type;
   return value_type::unparse(flag);
 }
 
-inline bool AbslParseFlag(absl::string_view &text, roq::flags::validators::NonEmpty *&flag, std::string *&error) {
+inline bool AbslParseFlag(absl::string_view &text, roq::flags::validators::ListenAddress *&flag, std::string *&error) {
   using value_type = std::remove_cvref<decltype(*flag)>::type;
   return value_type::parse(text, flag, error);
 }

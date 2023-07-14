@@ -28,10 +28,11 @@ struct TimePeriod final {
 
   static bool required() { return false; }
 
-  // utilities
+  operator std::chrono::nanoseconds() const;
   operator std::chrono::milliseconds() const;
 
   // abseil
+
   static std::string unparse(TimePeriod const &);
   static bool parse(absl::string_view &, TimePeriod *&, std::string *&);
 
@@ -39,9 +40,15 @@ struct TimePeriod final {
   value_type value_ = {};
 };
 
-// abseil
-extern std::string ROQ_PUBLIC AbslUnparseFlag(TimePeriod const &);
-extern bool ROQ_PUBLIC AbslParseFlag(absl::string_view &, TimePeriod *&, std::string *&);
+inline std::string AbslUnparseFlag(roq::flags::validators::TimePeriod const &flag) {
+  using value_type = std::remove_cvref<decltype(flag)>::type;
+  return value_type::unparse(flag);
+}
+
+inline bool AbslParseFlag(absl::string_view &text, roq::flags::validators::TimePeriod *&flag, std::string *&error) {
+  using value_type = std::remove_cvref<decltype(*flag)>::type;
+  return value_type::parse(text, flag, error);
+}
 
 }  // namespace validators
 }  // namespace flags

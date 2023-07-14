@@ -11,6 +11,10 @@ namespace validators {
 TimePeriod::TimePeriod(std::chrono::nanoseconds value) : value_{absl::FromChrono(value)} {
 }
 
+TimePeriod::operator std::chrono::nanoseconds() const {
+  return absl::ToChronoNanoseconds(value_);
+}
+
 TimePeriod::operator std::chrono::milliseconds() const {
   return absl::ToChronoMilliseconds(value_);
 }
@@ -23,14 +27,6 @@ bool TimePeriod::parse(absl::string_view &text, TimePeriod *&flag, std::string *
   if (!absl::ParseFlag(text, &(*flag).value_, error))
     return false;
   return true;
-}
-
-std::string AbslUnparseFlag(TimePeriod const &flag) {
-  return TimePeriod::unparse(flag);
-}
-
-bool AbslParseFlag(absl::string_view &text, TimePeriod *&flag, std::string *&error) {
-  return TimePeriod::parse(text, flag, error);
 }
 
 }  // namespace validators

@@ -12,11 +12,11 @@ namespace roq {
 namespace flags {
 namespace validators {
 
-struct ROQ_PUBLIC NonEmpty final {
+struct ROQ_PUBLIC RequiredPath final {
   using value_type = std::string;
 
-  NonEmpty() = default;
-  NonEmpty(value_type const &value) : value_{value} {}  // NOLINT
+  RequiredPath() = default;
+  RequiredPath(value_type const &value) : value_{value} {}  // NOLINT
 
   operator value_type const &() const { return value_; }
 
@@ -26,19 +26,19 @@ struct ROQ_PUBLIC NonEmpty final {
 
   // abseil
 
-  static std::string unparse(NonEmpty const &);
-  static bool parse(absl::string_view &, NonEmpty *&, std::string *&);
+  static std::string unparse(RequiredPath const &);
+  static bool parse(absl::string_view &, RequiredPath *&, std::string *&);
 
  private:
   value_type value_;
 };
 
-inline std::string AbslUnparseFlag(roq::flags::validators::NonEmpty const &flag) {
+inline std::string AbslUnparseFlag(roq::flags::validators::RequiredPath const &flag) {
   using value_type = std::remove_cvref<decltype(flag)>::type;
   return value_type::unparse(flag);
 }
 
-inline bool AbslParseFlag(absl::string_view &text, roq::flags::validators::NonEmpty *&flag, std::string *&error) {
+inline bool AbslParseFlag(absl::string_view &text, roq::flags::validators::RequiredPath *&flag, std::string *&error) {
   using value_type = std::remove_cvref<decltype(*flag)>::type;
   return value_type::parse(text, flag, error);
 }
