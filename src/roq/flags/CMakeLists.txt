@@ -3,10 +3,7 @@ set(TARGET_NAME ${PROJECT_NAME})
 set(SOURCES
     validators/directory.cpp
     validators/listen_address.cpp
-    validators/non_empty.cpp
     validators/path.cpp
-    validators/required_listen_address.cpp
-    validators/required_path.cpp
     validators/time_period.cpp
     args.cpp)
 
