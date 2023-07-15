@@ -15,7 +15,7 @@ namespace roq {
 namespace flags {
 namespace validators {
 
-struct TimePeriod final {
+struct ROQ_PUBLIC TimePeriod final {
   using value_type = absl::Duration;
 
   TimePeriod() = default;
