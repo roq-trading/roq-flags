@@ -37,9 +37,9 @@ bool ListenAddress::parse(absl::string_view &text, ListenAddress *&flag, std::st
     return false;
   if (std::empty((*flag).value_))
     return true;
-  uint16_t port = {};
-  auto [ptr, ec] = std::from_chars(std::begin(text), std::end(text), port);
-  if (ec == std::errc{}) {  // port
+  if (is_port(text)) {
+    return true;
+  } else if (text.starts_with("tcp://localhost:"sv)) {  // XXX TODO HACK
     return true;
   } else {  // unix path
     if ((*flag).value_[0] != '/') {
