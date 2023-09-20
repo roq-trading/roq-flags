@@ -52,6 +52,14 @@ find_package(absl REQUIRED)
 find_package(fmt REQUIRED)
 find_package(roq-api REQUIRED)
 
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+  include(CTest)
+endif()
+
+if(BUILD_TESTING)
+  find_package(Catch2 REQUIRED)
+endif()
+
 # include
 
 include_directories(${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/src)
@@ -68,17 +76,6 @@ install(
   FILES_MATCHING
   PATTERN "*.hpp"
   PATTERN "CMakeFiles" EXCLUDE)
-
-# test
-
-if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-  include(CTest)
-endif()
-
-if(BUILD_TESTING)
-  find_package(Catch2 REQUIRED)
-  add_subdirectory(${CMAKE_SOURCE_DIR}/test)
-endif()
 
 # doxygen
 

@@ -1,3 +1,7 @@
+if(BUILD_TESTING)
+  add_subdirectory(test)
+endif()
+
 set(TARGET_NAME ${PROJECT_NAME})
 
 set(SOURCES validators/directory.cpp validators/listen_address.cpp validators/path.cpp
