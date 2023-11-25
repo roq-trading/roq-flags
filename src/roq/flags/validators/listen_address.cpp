@@ -39,7 +39,9 @@ bool ListenAddress::parse(absl::string_view &text, ListenAddress *&flag, std::st
     return true;
   if (is_port(text)) {
     return true;
-  } else if (text.starts_with("tcp://localhost:"sv)) {  // XXX TODO HACK
+  } else if (
+      text.starts_with("tcp://localhost:"sv) || text.starts_with("http://localhost:") ||
+      text.starts_with("ws://localhost:")) {  // XXX TODO HACK
     return true;
   } else {  // unix path
     if ((*flag).value_[0] != '/') {
