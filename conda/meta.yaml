@@ -11,6 +11,9 @@ build:
   script_env:
     - ROQ_BUILD_NUMBER
     - ROQ_BUILD_TYPE
+    - CFLAGS=-O3
+    - CPPFLAGS=-O3  # [linux]
+    - CPPFLAGS=-O3 -D_LIBCPP_DISABLE_AVAILABILITY  # [osx]
   run_exports:
     - {{ pin_subpackage('roq-flags', max_pin='x.x.x') }}
 
@@ -22,10 +25,10 @@ requirements:
     - make
     - pkg-config
   host:
-    - fmt
-    - roq-api
     - abseil-cpp
     - catch2  # [linux]
+    - fmt
+    - roq-api
     - roq-oss-catch2  # [osx]
     - roq-oss-ctre
 
