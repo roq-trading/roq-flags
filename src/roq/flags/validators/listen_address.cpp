@@ -19,11 +19,9 @@ constexpr auto is_port(auto const &text) {
   return ec == std::errc{};
 }
 
-#if __cplusplus >= 202301L
 static_assert(is_port("123"sv));
 static_assert(is_port("/foo/bar"sv) == false);
 static_assert(is_port(""sv) == false);
-#endif
 }  // namespace
 
 //  === IMPLEMENTATION ===
