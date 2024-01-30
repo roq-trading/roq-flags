@@ -26,11 +26,10 @@ requirements:
     - pkg-config
   host:
     - abseil-cpp
-    - catch2  # [linux]
+    - catch2
+    - ctre
     - fmt
     - roq-api
-    - roq-oss-catch2  # [osx]
-    - roq-oss-ctre
 
 about:
   home: https://roq-trading.com
