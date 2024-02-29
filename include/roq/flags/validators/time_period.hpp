@@ -19,8 +19,8 @@ struct ROQ_PUBLIC TimePeriod final {
   using value_type = absl::Duration;
 
   TimePeriod() = default;
-  TimePeriod(std::chrono::nanoseconds);                       // NOLINT
-  TimePeriod(absl::Duration const &value) : value_{value} {}  // NOLINT
+  TimePeriod(std::chrono::nanoseconds);
+  TimePeriod(absl::Duration const &value) : value_{value} {}
 
   operator value_type const &() const { return value_; }
 

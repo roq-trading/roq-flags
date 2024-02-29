@@ -16,7 +16,7 @@ struct ROQ_PUBLIC ListenAddress final {
   using value_type = std::string;
 
   ListenAddress() = default;
-  ListenAddress(value_type const &value) : value_{value} {}  // NOLINT
+  ListenAddress(value_type const &value) : value_{value} {}
 
   operator value_type const &() const { return value_; }
 

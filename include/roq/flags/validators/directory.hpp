@@ -16,7 +16,7 @@ struct ROQ_PUBLIC Directory final {
   using value_type = std::string;
 
   Directory() = default;
-  Directory(value_type const &value) : value_{value} {}  // NOLINT
+  Directory(value_type const &value) : value_{value} {}
 
   operator value_type const &() const { return value_; }
 

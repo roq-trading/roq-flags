@@ -16,7 +16,7 @@ struct ROQ_PUBLIC Path final {
   using value_type = std::string;
 
   Path() = default;
-  Path(value_type const &value) : value_{value} {}  // NOLINT
+  Path(value_type const &value) : value_{value} {}
 
   operator value_type const &() const { return value_; }
 

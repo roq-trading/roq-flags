@@ -19,7 +19,7 @@ struct ROQ_PUBLIC PowerOfTwo final {
   using value_type = T;
 
   PowerOfTwo() = default;
-  PowerOfTwo(value_type const &value) : value_{value} {}  // NOLINT
+  PowerOfTwo(value_type const &value) : value_{value} {}
 
   operator value_type() const { return value_; }
 
