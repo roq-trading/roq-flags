@@ -16,6 +16,8 @@ namespace flags {
 struct ROQ_PUBLIC Args final : public args::Parser {
   Args(int argc, char **argv, std::string_view const &description, std::string_view const &version);
 
+  Args(Args const &) = delete;
+
   operator std::span<std::string_view const>() const override { return args_; }
 
  private:
