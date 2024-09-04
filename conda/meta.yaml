@@ -15,8 +15,7 @@ build:
     - CPPFLAGS=-O3  # [linux]
     - CPPFLAGS=-O3 -D_LIBCPP_DISABLE_AVAILABILITY  # [osx]
   run_exports:
-    - {{ pin_subpackage('roq-flags', max_pin='x.x.x') }}
-    - {{ pin_compatible('libabseil', max_pin='x.x') }}
+    - roq-flags
 
 requirements:
   build:
