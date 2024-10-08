@@ -6,8 +6,8 @@
 #include <absl/flags/usage.h>
 #include <absl/flags/usage_config.h>
 
-#if defined(__clang__)  // note! ctre doesn't compile with clang19
-#pragma clang diagnostic ignored "-Wmissing-template-arg-list-after-template-kw"
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wmissing-template-arg-list-after-template-kw"  // note! clang19: a template argument list is expected [...]
 #endif
 
 #include <ctre.hpp>
