@@ -6,8 +6,10 @@
 #include <absl/flags/usage.h>
 #include <absl/flags/usage_config.h>
 
-// note! ctre doesn't compile with clang19
+#if defined(__clang__)  // note! ctre doesn't compile with clang19
 #pragma clang diagnostic ignored "-Wmissing-template-arg-list-after-template-kw"
+#endif
+
 #include <ctre.hpp>
 
 namespace roq {
