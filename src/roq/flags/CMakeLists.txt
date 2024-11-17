@@ -6,9 +6,8 @@ add_library(${TARGET_NAME} SHARED ${SOURCES})
 
 target_link_libraries(
   ${TARGET_NAME}
-  PUBLIC roq-api::roq-api
-  INTERFACE fmt::fmt
-  PRIVATE absl::flags_parse absl::flags_usage)
+  INTERFACE roq-api::roq-api
+  PRIVATE absl::flags_parse absl::flags_usage ctre::ctre fmt::fmt)
 
 if(ROQ_BUILD_TYPE STREQUAL "Release")
   set_target_properties(${TARGET_NAME} PROPERTIES LINK_FLAGS_RELEASE -s)

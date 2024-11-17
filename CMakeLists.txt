@@ -25,6 +25,7 @@ include(GNUInstallDirs)
 # dependencies
 
 find_package(absl REQUIRED)
+find_package(ctre REQUIRED)
 find_package(fmt REQUIRED)
 find_package(roq-api REQUIRED)
 
@@ -42,7 +43,7 @@ include_directories(${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/src)
 
 # sub-projects
 
-add_subdirectory(${CMAKE_SOURCE_DIR}/src)
+add_subdirectory(${CMAKE_SOURCE_DIR}/src/roq/flags)
 
 if(BUILD_TESTING)
   add_subdirectory(${CMAKE_SOURCE_DIR}/test)
