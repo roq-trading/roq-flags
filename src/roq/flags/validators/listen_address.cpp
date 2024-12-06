@@ -40,7 +40,13 @@ bool ListenAddress::parse(absl::string_view &text, ListenAddress *&flag, std::st
   } else if (text.starts_with("tcp://localhost:"sv) || text.starts_with("http://localhost:") || text.starts_with("ws://localhost:")) {  // XXX TODO HACK
     return true;
   } else {  // unix path
-    if ((*flag).value_[0] != '/') {
+    auto path = [&]() {
+      auto text = (*flag).value_;
+      if (text.starts_with("unix://"sv))
+        return text.substr(7);
+      return text;
+    }();
+    if (!path.starts_with('/')) {
       *error = "must be an absolute path"s;
       return false;
     }
