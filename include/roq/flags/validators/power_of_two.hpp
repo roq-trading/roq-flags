@@ -14,7 +14,7 @@ namespace roq {
 namespace flags {
 namespace validators {
 
-template <typename T, typename std::enable_if<std::is_integral<T>::value, int>::type = 0>
+template <typename T, typename std::enable_if_t<std::is_integral_v<T>, int> = 0>
 struct ROQ_PUBLIC PowerOfTwo final {
   using value_type = T;
 
@@ -33,8 +33,9 @@ struct ROQ_PUBLIC PowerOfTwo final {
 
   static bool parse(absl::string_view &text, PowerOfTwo *&flag, std::string *&error) {
     using namespace std::literals;
-    if (!absl::ParseFlag(text, &(*flag).value_, error))
+    if (!absl::ParseFlag(text, &(*flag).value_, error)) {
       return false;
+    }
     if (!((*flag).value_ > 0) || !utils::power_of_two((*flag).value_)) {
       *error = "not power of two"s;
       return false;
@@ -48,13 +49,13 @@ struct ROQ_PUBLIC PowerOfTwo final {
 
 template <typename T>
 inline std::string AbslUnparseFlag(roq::flags::validators::PowerOfTwo<T> const &flag) {
-  using value_type = std::remove_cvref<decltype(flag)>::type;
+  using value_type = std::remove_cvref_t<decltype(flag)>;
   return value_type::unparse(flag);
 }
 
 template <typename T>
 inline bool AbslParseFlag(absl::string_view &text, roq::flags::validators::PowerOfTwo<T> *&flag, std::string *&error) {
-  using value_type = std::remove_cvref<decltype(*flag)>::type;
+  using value_type = std::remove_cvref_t<decltype(*flag)>;
   return value_type::parse(text, flag, error);
 }
 

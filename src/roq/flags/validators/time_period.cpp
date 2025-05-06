@@ -24,9 +24,7 @@ std::string TimePeriod::unparse(TimePeriod const &flag) {
 }
 
 bool TimePeriod::parse(absl::string_view &text, TimePeriod *&flag, std::string *&error) {
-  if (!absl::ParseFlag(text, &(*flag).value_, error))
-    return false;
-  return true;
+  return absl::ParseFlag(text, &(*flag).value_, error);
 }
 
 }  // namespace validators

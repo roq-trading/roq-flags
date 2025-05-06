@@ -16,7 +16,7 @@ struct ROQ_PUBLIC ListenAddress final {
   using value_type = std::string;
 
   ListenAddress() = default;
-  ListenAddress(value_type const &value) : value_{value} {}
+  ListenAddress(value_type value) : value_{std::move(value)} {}
 
   operator value_type const &() const { return value_; }
 
@@ -34,12 +34,12 @@ struct ROQ_PUBLIC ListenAddress final {
 };
 
 inline std::string AbslUnparseFlag(roq::flags::validators::ListenAddress const &flag) {
-  using value_type = std::remove_cvref<decltype(flag)>::type;
+  using value_type = std::remove_cvref_t<decltype(flag)>;
   return value_type::unparse(flag);
 }
 
 inline bool AbslParseFlag(absl::string_view &text, roq::flags::validators::ListenAddress *&flag, std::string *&error) {
-  using value_type = std::remove_cvref<decltype(*flag)>::type;
+  using value_type = std::remove_cvref_t<decltype(*flag)>;
   return value_type::parse(text, flag, error);
 }
 

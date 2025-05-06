@@ -41,12 +41,12 @@ struct ROQ_PUBLIC TimePeriod final {
 };
 
 inline std::string AbslUnparseFlag(roq::flags::validators::TimePeriod const &flag) {
-  using value_type = std::remove_cvref<decltype(flag)>::type;
+  using value_type = std::remove_cvref_t<decltype(flag)>;
   return value_type::unparse(flag);
 }
 
 inline bool AbslParseFlag(absl::string_view &text, roq::flags::validators::TimePeriod *&flag, std::string *&error) {
-  using value_type = std::remove_cvref<decltype(*flag)>::type;
+  using value_type = std::remove_cvref_t<decltype(*flag)>;
   return value_type::parse(text, flag, error);
 }
 

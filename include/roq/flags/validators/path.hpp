@@ -16,7 +16,7 @@ struct ROQ_PUBLIC Path final {
   using value_type = std::string;
 
   Path() = default;
-  Path(value_type const &value) : value_{value} {}
+  Path(value_type value) : value_{std::move(value)} {}
 
   operator value_type const &() const { return value_; }
 
@@ -34,12 +34,12 @@ struct ROQ_PUBLIC Path final {
 };
 
 inline std::string AbslUnparseFlag(roq::flags::validators::Path const &flag) {
-  using value_type = std::remove_cvref<decltype(flag)>::type;
+  using value_type = std::remove_cvref_t<decltype(flag)>;
   return value_type::unparse(flag);
 }
 
 inline bool AbslParseFlag(absl::string_view &text, roq::flags::validators::Path *&flag, std::string *&error) {
-  using value_type = std::remove_cvref<decltype(*flag)>::type;
+  using value_type = std::remove_cvref_t<decltype(*flag)>;
   return value_type::parse(text, flag, error);
 }
 

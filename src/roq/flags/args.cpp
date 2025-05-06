@@ -22,7 +22,7 @@ constexpr auto const PATTERN = ctll::fixed_string{".*/opt/conda/.*work/(src/)?(.
 namespace {
 template <typename R>
 R initialize(auto argc, auto argv, auto &description, auto &version) {
-  using result_type = std::remove_cvref<R>::type;
+  using result_type = std::remove_cvref_t<R>;
   std::span<char *> args{argv, static_cast<size_t>(argc)};
   assert(!std::empty(args));
   absl::SetProgramUsageMessage(description);
@@ -40,10 +40,11 @@ R initialize(auto argc, auto argv, auto &description, auto &version) {
       .normalize_filename = normalize_filename,
   };
   absl::SetFlagsUsageConfig(config);
-  auto tmp = absl::ParseCommandLine(std::size(args), std::data(args));
+  auto tmp = absl::ParseCommandLine(static_cast<int>(std::size(args)), std::data(args));
   result_type result;
-  for (auto &item : tmp)
+  for (auto &item : tmp) {
     result.emplace_back(item);
+  }
   return result;
 }
 }  // namespace

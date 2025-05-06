@@ -13,8 +13,9 @@ std::string Directory::unparse(Directory const &flag) {
 }
 
 bool Directory::parse(absl::string_view &text, Directory *&flag, std::string *&error) {
-  if (!absl::ParseFlag(text, &(*flag).value_, error))
+  if (!absl::ParseFlag(text, &(*flag).value_, error)) {
     return false;
+  }
   if (std::empty((*flag).value_)) {
     *error = "can not be empty"s;
     return false;

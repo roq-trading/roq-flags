@@ -10,7 +10,16 @@ namespace roq {
 namespace flags {
 namespace validators {
 
-//  === HELPERS ===
+// === CONSTANTS ===
+
+namespace {
+auto const TCP_PREFIX = "tcp://"sv;
+auto const HTTP_PREFIX = "http://";
+auto const WS_PREFIX = "ws://";
+auto const UNIX_PREFIX = "unix://"sv;
+}  // namespace
+
+// === HELPERS ===
 
 namespace {
 constexpr auto is_port(auto const &text) {
@@ -20,8 +29,8 @@ constexpr auto is_port(auto const &text) {
 }
 
 static_assert(is_port("123"sv));
-static_assert(is_port("/foo/bar"sv) == false);
-static_assert(is_port(""sv) == false);
+static_assert(!is_port("/foo/bar"sv));
+static_assert(!is_port(""sv));
 }  // namespace
 
 //  === IMPLEMENTATION ===
@@ -31,25 +40,28 @@ std::string ListenAddress::unparse(ListenAddress const &flag) {
 }
 
 bool ListenAddress::parse(absl::string_view &text, ListenAddress *&flag, std::string *&error) {
-  if (!absl::ParseFlag(text, &(*flag).value_, error))
+  if (!absl::ParseFlag(text, &(*flag).value_, error)) {
     return false;
-  if (std::empty((*flag).value_))
+  }
+  if (std::empty((*flag).value_)) {
     return true;
+  }
   if (is_port(text)) {
     return true;
-  } else if (text.starts_with("tcp://"sv) || text.starts_with("http://") || text.starts_with("ws://")) {
+  }
+  if (text.starts_with(TCP_PREFIX) || text.starts_with(HTTP_PREFIX) || text.starts_with(WS_PREFIX)) {
     return true;
-  } else {  // unix path
-    auto path = [&]() {
-      auto text = (*flag).value_;
-      if (text.starts_with("unix://"sv))
-        return text.substr(7);
-      return text;
-    }();
-    if (!path.starts_with('/')) {
-      *error = "must be an absolute path"s;
-      return false;
+  }
+  auto path = [&]() {
+    auto text = (*flag).value_;
+    if (text.starts_with(UNIX_PREFIX)) {
+      return text.substr(std::size(UNIX_PREFIX));
     }
+    return text;
+  }();
+  if (!path.starts_with('/')) {
+    *error = "must be an absolute path"s;
+    return false;
   }
   return true;
 }
