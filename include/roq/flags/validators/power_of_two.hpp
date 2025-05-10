@@ -14,7 +14,8 @@ namespace roq {
 namespace flags {
 namespace validators {
 
-template <typename T, typename std::enable_if_t<std::is_integral_v<T>, int> = 0>
+template <typename T>
+  requires std::is_integral_v<T>
 struct ROQ_PUBLIC PowerOfTwo final {
   using value_type = T;
 
