@@ -8,6 +8,8 @@
 
 #include <ctre.hpp>
 
+#include <cassert>
+
 namespace roq {
 namespace flags {
 
