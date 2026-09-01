@@ -15,17 +15,18 @@ requirements:
   build:
     - {{ compiler('cxx') }}
     - cmake
-    - coreutils                                                                                                                                                    
+    - coreutils
     - doxygen
     - git
     - make
     - pkg-config
   host:
-    - catch2
+    - catch2  # [osx]
     - ctre
     - fmt
     - libabseil
     - roq-api
+    - roq-oss-catch2  # [linux]
 
 about:
   home: https://roq-trading.com
